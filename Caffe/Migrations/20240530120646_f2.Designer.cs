@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Caffe.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240527072148_addDrinkDescription")]
-    partial class addDrinkDescription
+    [Migration("20240530120646_f2")]
+    partial class f2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,13 +39,12 @@ namespace Caffe.Migrations
                     b.Property<int>("MaHoaDon")
                         .HasColumnType("int");
 
-                    b.Property<int>("SoLuong")
-                        .HasColumnType("int");
-
-                    b.Property<int>("price")
+                    b.Property<int>("Soluong")
                         .HasColumnType("int");
 
                     b.HasKey("MaHoaDonChiTiet");
+
+                    b.HasIndex("DrinkId");
 
                     b.HasIndex("MaHoaDon");
 
@@ -66,7 +65,7 @@ namespace Caffe.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18)");
 
                     b.Property<string>("descripton")
                         .IsRequired()
@@ -139,11 +138,19 @@ namespace Caffe.Migrations
 
             modelBuilder.Entity("Caffe.Models.ChiTietHoaDon", b =>
                 {
+                    b.HasOne("Caffe.Models.Drink", "Drink")
+                        .WithMany()
+                        .HasForeignKey("DrinkId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Caffe.Models.HoaDon", "HoaDon")
                         .WithMany("ChiTietHoaDons")
                         .HasForeignKey("MaHoaDon")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Drink");
 
                     b.Navigation("HoaDon");
                 });

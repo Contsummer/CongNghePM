@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Caffe.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240527071011_first")]
+    [Migration("20240530120402_first")]
     partial class first
     {
         /// <inheritdoc />
@@ -39,13 +39,12 @@ namespace Caffe.Migrations
                     b.Property<int>("MaHoaDon")
                         .HasColumnType("int");
 
-                    b.Property<int>("SoLuong")
-                        .HasColumnType("int");
-
-                    b.Property<int>("price")
+                    b.Property<int>("Soluong")
                         .HasColumnType("int");
 
                     b.HasKey("MaHoaDonChiTiet");
+
+                    b.HasIndex("DrinkId");
 
                     b.HasIndex("MaHoaDon");
 
@@ -66,7 +65,11 @@ namespace Caffe.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18)");
+
+                    b.Property<string>("descripton")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("imagePath")
                         .HasColumnType("nvarchar(max)");
@@ -135,11 +138,19 @@ namespace Caffe.Migrations
 
             modelBuilder.Entity("Caffe.Models.ChiTietHoaDon", b =>
                 {
+                    b.HasOne("Caffe.Models.Drink", "Drink")
+                        .WithMany()
+                        .HasForeignKey("DrinkId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Caffe.Models.HoaDon", "HoaDon")
                         .WithMany("ChiTietHoaDons")
                         .HasForeignKey("MaHoaDon")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Drink");
 
                     b.Navigation("HoaDon");
                 });

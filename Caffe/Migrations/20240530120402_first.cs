@@ -18,7 +18,8 @@ namespace Caffe.Migrations
                     DrinkId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,0)", nullable: false),
+                    descripton = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     imagePath = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -66,12 +67,17 @@ namespace Caffe.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     MaHoaDon = table.Column<int>(type: "int", nullable: false),
                     DrinkId = table.Column<int>(type: "int", nullable: false),
-                    price = table.Column<int>(type: "int", nullable: false),
-                    SoLuong = table.Column<int>(type: "int", nullable: false)
+                    Soluong = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ChiTietHoaDons", x => x.MaHoaDonChiTiet);
+                    table.ForeignKey(
+                        name: "FK_ChiTietHoaDons_Drinks_DrinkId",
+                        column: x => x.DrinkId,
+                        principalTable: "Drinks",
+                        principalColumn: "DrinkId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ChiTietHoaDons_HoaDons_MaHoaDon",
                         column: x => x.MaHoaDon,
@@ -79,6 +85,11 @@ namespace Caffe.Migrations
                         principalColumn: "MaHoaDon",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ChiTietHoaDons_DrinkId",
+                table: "ChiTietHoaDons",
+                column: "DrinkId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ChiTietHoaDons_MaHoaDon",
@@ -93,10 +104,10 @@ namespace Caffe.Migrations
                 name: "ChiTietHoaDons");
 
             migrationBuilder.DropTable(
-                name: "Drinks");
+                name: "Users");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Drinks");
 
             migrationBuilder.DropTable(
                 name: "HoaDons");
