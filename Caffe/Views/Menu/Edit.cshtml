@@ -1,0 +1,72 @@
+﻿@model Caffe.Models.DTO.DrinkDTO
+<h3> Drink Name  : @Model.Name </h3>
+@* <form  method="post" asp-controller="Menu" asp-action="edit">
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label">Name</label>
+        <input type="text" class="form-control" asp-for="Name" id="exampleInputEmail1" aria-describedby="emailHelp">
+    <input type="number" asp-for="id" class="form-control">
+
+    </div>
+    <div class="mb-3">
+        <label asp-for="Price" class="form-label">Price</label>
+        <input type="text" asp-for="Price" class="form-control" id="exampleInputPassword1">
+        <span class="text-danger " asp-validation-summary="All"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Description" class="form-label">Description</label>
+        <input type="text" asp-for="Description" class="form-control" id="exampleInputPassword1">
+        <span class="text-danger " asp-validation-summary="All"></span>
+    </div>
+    <div class=" ">
+        <input  asp-for="ImageFile" type="file" class="form-control" >
+    </div>
+    <button type="submit" class="btn btn-primary" value="save">save</button>
+</form>
+ *@
+<form method="post" asp-controller="Menu" asp-action="edit" enctype="multipart/form-data">
+   
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label">Name</label>
+        <input type="text" class="form-control" asp-for="Name" aria-describedby="nameHelp">
+    </div>
+    <div class="mb-3">
+        <label asp-for="Price" class="form-label">Price</label>
+        <input type="text" class="form-control" asp-for="Price">
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Description" class="form-label">Description</label>
+        <input type="text" class="form-control" asp-for="Description">
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="ImageFile" class="form-label">Image</label>
+        <input type="file" class="form-control" asp-for="ImageFile">
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+
+<script>
+    document.getElementById('myForm').addEventListener('submit', function (event) {
+        var fileName = document.getElementById('ImageFile').value;
+        var price = parseFloat(document.getElementById('Price').value);
+
+        if (price <= 1) {
+            alert('Giá sản phẩm phải lớn hơn 0');
+            event.preventDefault();
+            return;
+        }
+
+        if (!isValidFileExtension(fileName)) {
+            alert('Chỉ chấp nhận các tệp ảnh có phần mở rộng: jpg, jpeg, png, gif');
+            event.preventDefault();
+        }
+    });
+
+    function isValidFileExtension(fileName) {
+        var validExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+        var fileExtension = fileName.split('.').pop().toLowerCase();
+        return validExtensions.includes(fileExtension);
+    }
+
+</script>

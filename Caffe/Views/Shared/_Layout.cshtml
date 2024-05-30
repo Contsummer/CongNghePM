@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] Cà phê 9:53</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Aboutus.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Menu.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Home.css" asp-append-version="true" />
+
+    <link rel="stylesheet" href="~/Caffe.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"> <img src="~/Image/LayoutImage/logo.jpg" class="logo_image"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Menu" asp-action="Index">Menu</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AboutUs">About us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="HoaDon" asp-action="add"> Hoa Don </a>
+                        </li>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="home" asp-action="bosung">(bổ sung)</a>
+                        </li>
+                    </ul>
+                    <div class="col-md-3 text-end">
+                        <button type="button" class="btn btn-outline-primary me-2">Login</button>
+                        <button type="button" class="btn btn-primary">Sign-up</button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <!-- Phần giới thiệu -->
+
+    <footer class="bg-light text-center text-lg-start">
+        <div class="container p-4">
+            <div class="row">
+                <!-- Thông tin liên hệ -->
+                <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Liên hệ</h5>
+                    <ul class="list-unstyled mb-0">
+                        <li>
+                            <p>Cafe 9:53</p>
+                        </li>
+                        <li>
+                            <p>Địa chỉ: 180 Cao Lỗ, Phường 4, Quận 8, Tp. Hồ Chí Minh</p>
+                        </li>
+                        <li>
+                            <p>Điện thoại: (0123) 456-7890</p>
+                        </li>
+                        <li>
+                            <p>Email: cafe9h53@gmail.com</p>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Liên kết nhanh -->
+                <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Liên kết nhanh</h5>
+                    <ul class="list-unstyled">
+                        <li>
+                            <a class="text-dark" asp-action="AboutUs">About Us</a>
+                        </li>
+                        <li>
+                            <a class="text-dark" asp-action="Index">Sản phẩm</a>
+                        </li>
+                        <li>
+                            <a class="text-dark">Khuyến mãi</a>
+                        </li>
+                        <li>
+                            <a class="text-dark">Liên hệ</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Mạng xã hội -->
+                <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Theo dõi chúng tôi</h5>
+                    <ul class="list-unstyled d-flex justify-content-center">
+                        <li>
+                            <a href="" class="text-dark mr-4"><i class="fab fa-facebook-f"></i> <img class="logo-footer" src="~/Image/facebook.svg" alt="Alternate Text" />  : Cafe 9:53 </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-dark mr-4"><i class="fab fa-twitter"></i> <img class="logo-footer" src="~/Image/x-twitter.svg" alt="Alternate Text" />: Cafe 9:53</a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-dark mr-4"><i class="fab fa-instagram"></i><img class="logo-footer" src="~/Image/instagram.svg" alt="Alternate Text" />: Cafe 9:53</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2024 Bản quyền thuộc về Công ty Cafe 9:53.
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

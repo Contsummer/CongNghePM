@@ -1,0 +1,60 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+.logo_image {
+    width: auto !important;
+    height: 70px !important;
+    border-radius: 10%;
+}
+
+.navbar-collapse {
+}
+
+    .navbar-collapse ul li :hover {
+        background-color: aqua
+    }
+
+.navbar-nav {
+    text-align: center;
+    justify-content: center;
+}
+
+.list-unstyled {
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.text-dark {
+    text-decoration: none;
+}
+li p{
+    margin-bottom:0px;
+}
+.logo-footer {
+    width: 14px;
+<<<<<<< HEAD
+    margin-bottom:5px;
+=======
+    margin-bottom: 5px;
+>>>>>>> 9b7a31ecf3a4a2817d0a2b138022de1c022f16aa
+}

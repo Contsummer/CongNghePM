@@ -1,0 +1,51 @@
+﻿@model Caffe.Models.DTO.DrinkDTO
+<h1>Thêm sản phẩm  </h1>
+<div class="container ">
+    <form method="post" asp-controller="Menu" asp-action="add" id="myForm" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label class="form-label">Name</label>
+            <input asp-for="Name" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Price</label>
+            <input asp-for="Price" type="number" class="form-control" >
+
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Description</label>
+            <input asp-for="Description" type="text" class="form-control" >
+        </div>
+        <div>
+            <label class="form-label">image</label>
+            <input required="true" asp-for="ImageFile" type="file" class="form-control" >
+
+        </div>
+        <button type="submit" class="btn btn-primary" value="add" id="submitButton">Submit</button>
+    </form>
+</div>
+
+            
+<script>
+    document.getElementById('myForm').addEventListener('submit', function (event) {
+        var fileName = document.getElementById('ImageFile').value;
+        var price = parseFloat(document.getElementById('Price').value);
+
+        if (price <= 0) {
+            alert('Giá sản phẩm phải lớn hơn 0');
+            event.preventDefault();
+            return;
+        }
+
+        if (!isValidFileExtension(fileName)) {
+            alert('Chỉ chấp nhận các tệp ảnh có phần mở rộng: jpg, jpeg, png, gif');
+            event.preventDefault();
+        }
+    });
+
+    function isValidFileExtension(fileName) {
+        var validExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+        var fileExtension = fileName.split('.').pop().toLowerCase();
+        return validExtensions.includes(fileExtension);
+    }
+
+</script>

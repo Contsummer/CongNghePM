@@ -1,0 +1,26 @@
+﻿@model List<Drink>
+<h1>Đây là menu </h1>
+<a class="btn btn-success col-1"  asp-action="add" asp-controller="Menu" > add</a>
+
+<div class="container ">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach (Drink drink in Model)
+        {
+            <div class="col">
+                <div class="card">
+                    <img src="~/Image/@drink.imagePath" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">@drink.Name</h5>
+                        <h5 class="card-title">@drink.Price</h5>
+                        <p class="card-text">@drink.descripton</p>
+                        <a class="btn btn-primary" asp-action="Edit" asp-controller="Menu" asp-route-id="@drink.DrinkId"> edit</a>
+                        <a class="btn btn-danger" asp-action="Delete" asp-controller="Menu" asp-route-id="@drink.DrinkId"> Delete</a>
+                        <a class="btn btn-danger" asp-action="Add" asp-controller="HoaDon" asp-route-id="@drink.DrinkId"> Delete</a>
+                    </div>
+                </div>
+            </div>
+
+
+        }
+    </div>
+</div>
