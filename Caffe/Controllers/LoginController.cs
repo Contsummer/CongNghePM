@@ -73,9 +73,9 @@ namespace Caffe.Controllers
             if (user != null)
             {
                 // Store user information in session
+                HttpContext.Session.SetString("Username", user.Username);
                 HttpContext.Session.SetString("Name", user.Name);
-               
-                // You can store additional user info as needed
+                HttpContext.Session.SetString("role", user.role);
 
                 return Json(new { success = true });
             }

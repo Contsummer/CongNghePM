@@ -4,8 +4,8 @@
 @inject IHttpContextAccessor HttpContextAccessor
 <h1>Đây là menu </h1>
 @{
-    var userrole = HttpContextAccessor.HttpContext.Session.GetString("role");
-    if (userrole == "admin" )
+    var userrole = ViewBag.Userrole as string;
+    if (userrole == "admin")
     {
                                  <a class="btn btn-success col-1"  asp-action="add" asp-controller="Menu" > add</a>
 
