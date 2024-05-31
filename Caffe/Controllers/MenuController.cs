@@ -21,6 +21,8 @@ namespace Caffe.Controllers
         public IActionResult Index()
         {
             var drink = _context.Drinks.ToList();
+            var userrole = HttpContext.Session.GetString("role");          
+            ViewBag.Userrole = userrole;
             return View(drink);
         }
         public IActionResult Add()
@@ -31,6 +33,15 @@ namespace Caffe.Controllers
         {
             return View();
         }
+
+
+
+
+
+
+
+
+
         [HttpPost]
         public async Task<ActionResult> Add(DrinkDTO data)
         {

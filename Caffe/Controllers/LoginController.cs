@@ -27,7 +27,9 @@ namespace Caffe.Controllers
         public IActionResult Index()
         {
             var username = HttpContext.Session.GetString("Username");
+            var userrole = HttpContext.Session.GetString("role");
             ViewBag.Username = username;
+            ViewBag.Userrole = userrole;
             return View();
         }
         public IActionResult signup()
@@ -42,20 +44,19 @@ namespace Caffe.Controllers
         [HttpPost]
         public async Task<ActionResult> Add(User data)
         {
-            if (ModelState.IsValid)
-            {
+            
+            
                 User user = new User
                 {
                     Username = data.Username,
                     Password = data.Password,
                     Name = data.Name,
-                    role = "user"
+                    role = "user",
                 };
                 _context.Users.Add(user);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Signup");
-            }
-            return View(data);
+            
         }
         [HttpGet]
         public JsonResult CheckUsername(string username)
@@ -73,6 +74,7 @@ namespace Caffe.Controllers
             {
                 // Store user information in session
                 HttpContext.Session.SetString("Name", user.Name);
+               
                 // You can store additional user info as needed
 
                 return Json(new { success = true });
