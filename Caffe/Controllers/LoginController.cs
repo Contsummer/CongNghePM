@@ -48,7 +48,8 @@ namespace Caffe.Controllers
                 {
                     Username = data.Username,
                     Password = data.Password,
-                    Name = data.Name
+                    Name = data.Name,
+                    role = "user"
                 };
                 _context.Users.Add(user);
                 await _context.SaveChangesAsync();

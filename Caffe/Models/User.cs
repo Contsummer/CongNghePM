@@ -28,5 +28,6 @@ namespace Caffe.Models
         [MaxLength(200)]
         public string? AvatarPath { get; set; }
 
+        public string role { get; set; }
     }
 }
