@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
+
 namespace Caffe.Controllers
 {
     public class LoginController : Controller
@@ -44,8 +45,15 @@ namespace Caffe.Controllers
         [HttpPost]
         public async Task<ActionResult> Add(User data)
         {
-            
-            
+
+
+
+       
+     
+
+
+           
+         
                 User user = new User
                 {
                     Username = data.Username,
@@ -53,6 +61,7 @@ namespace Caffe.Controllers
                     Name = data.Name,
                     role = "user",
                 };
+
                 _context.Users.Add(user);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Signup");
@@ -67,8 +76,9 @@ namespace Caffe.Controllers
         [HttpPost]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
+           
             var user = await _context.Users
-                                     .FirstOrDefaultAsync(u => u.Username == request.Username && u.Password == request.Password);
+                                     .FirstOrDefaultAsync(u => u.Username == request.Username && u.Password  == request.Password);
 
             if (user != null)
             {

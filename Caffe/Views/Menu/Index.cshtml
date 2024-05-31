@@ -16,14 +16,14 @@
                 {
                         <div class="col">
                             <div class="card">
-                                <img src="~/Image/@drink.imagePath" class="card-img-top" alt="...">
+                                <img src="~/Image/@drink.imagePath" class="card-img-top" style="  height:270px !important;  "  alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title">@drink.Name</h5>
-                                    <h5 class="card-title">@drink.Price</h5>
+                                    <h5 class="card-title text-danger">@drink.Price VNĐ</h5>
                                     <p class="card-text">@drink.descripton</p>
                                     <a class="btn btn-primary" asp-action="Edit" asp-controller="Menu" asp-route-id="@drink.DrinkId"> edit</a>
                                     <a class="btn btn-danger" asp-action="Delete" asp-controller="Menu" asp-route-id="@drink.DrinkId"> Delete</a>
-                                    <a class="btn btn-success" asp-action="Add" asp-controller="HoaDon" asp-route-id="@drink.DrinkId"> thêm hóa đơn</a>
+                                   
                                 </div>
                             </div>
                         </div>
@@ -43,10 +43,10 @@
                 {
                         <div class="col">
                             <div class="card">
-                                <img src="~/Image/@drink.imagePath" class="card-img-top" alt="...">
+                                <img src="~/Image/@drink.imagePath" class="card-img-top "   style="  height:270px !important;  " alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title">@drink.Name</h5>
-                                    <h5 class="card-title">@drink.Price</h5>
+                                               <h5 class="card-title text-danger">@drink.Price VNĐ</h5>
                                     <p class="card-text">@drink.descripton</p>
                                    
                                 </div>
