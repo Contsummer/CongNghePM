@@ -1,6 +1,9 @@
 ﻿
 /*làm nhớ đặt tên class là Home__
 Ví dụ màu nên của trang home đi .Home__btnMenu ( nút chuyển qua trang menu)*/
+.container-home{
+    margin-top:113px;
+}
 .slideshow-container {
     position: relative;
     margin: 0px -88px;
