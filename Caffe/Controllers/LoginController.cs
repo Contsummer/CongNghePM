@@ -25,6 +25,10 @@ namespace Caffe.Controllers
         {
             return View();
         }
+        public IActionResult edit()
+        {
+            return View();
+        }
         public IActionResult Index()
         {
             var username = HttpContext.Session.GetString("Username");
@@ -47,13 +51,6 @@ namespace Caffe.Controllers
         {
 
 
-
-       
-     
-
-
-           
-         
                 User user = new User
                 {
                     Username = data.Username,
@@ -100,6 +97,64 @@ namespace Caffe.Controllers
             // Clear the session
             HttpContext.Session.Clear();
             // Redirect to the login page or home page
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit()
+        {
+            var username = HttpContext.Session.GetString("Username");
+            if (username == null)
+            {
+                // Người dùng chưa đăng nhập, chuyển hướng đến trang đăng nhập
+                return RedirectToAction("Login");
+            }
+
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
+            if (user == null)
+            {
+                // Người dùng không tồn tại trong cơ sở dữ liệu
+                return NotFound();
+            }
+
+            // Chỉ đọc tên và vai trò của người dùng
+            var userData = new User
+            {
+                Name = user.Name,
+                role = user.role
+            };
+
+            return View(userData);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(User updatedData)
+        {
+            var username = HttpContext.Session.GetString("Username");
+            if (username == null)
+            {
+               
+                return RedirectToAction("Login");
+            }
+
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
+            if (user == null)
+            {
+               
+                return NotFound();
+            }
+
+           
+            user.Name = updatedData.Name;
+            user.Password = updatedData.Password;
+
+          
+            await _context.SaveChangesAsync();
+
+           
+            HttpContext.Session.SetString("Name", updatedData.Name);
+
+            
             return RedirectToAction("Index", "Home");
         }
     }
