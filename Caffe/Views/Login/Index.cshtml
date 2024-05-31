@@ -1,0 +1,74 @@
+﻿@model Caffe.Models.User
+<div class="bg d-flex align-items-center justify-content-center">
+    <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 25rem;">
+        <div class="card-body">
+            <h5 class="card-title text-center">Login</h5>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">User</label>
+                    <input type="text" class="form-control" id="username" placeholder="Enter user">
+                    <div class="error-message text-danger" id="usernameErrorMessage"></div>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" placeholder="Enter password">
+                    <div class="error-message text-danger" id="passwordErrorMessage"></div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block mt-3">Login</button>
+                @Html.AntiForgeryToken()
+            </form>
+            <div class="error-message text-danger" id="loginErrorMessage"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    var form = document.getElementById("loginForm");
+    form.addEventListener("submit", function(event) {
+        event.preventDefault(); // Ngăn chặn gửi form mặc định
+
+        var username = document.getElementById("username").value.trim();
+        var password = document.getElementById("password").value.trim();
+        var isValid = true;
+
+        if (username === '') {
+            document.getElementById("usernameErrorMessage").textContent = 'Vui lòng nhập tài khoản của bạn.';
+            isValid = false;
+        } else {
+            document.getElementById("usernameErrorMessage").textContent = '';
+        }
+
+        if (password === '') {
+            document.getElementById("passwordErrorMessage").textContent = 'Vui lòng nhập mật khẩu của bạn.';
+            isValid = false;
+        } else {
+            document.getElementById("passwordErrorMessage").textContent = '';
+        }
+
+        if (isValid) {
+            fetch('@Url.Action("Login", "Login")', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+                },
+                body: JSON.stringify({ Username: username, Password: password })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                  
+                    window.location.href = '/'; // Redirect to homepage or another page
+                } else {
+                    document.getElementById("loginErrorMessage").textContent = 'Tên tài khoản hoặc mật khẩu không chính xác.';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById("loginErrorMessage").textContent = 'Đã xảy ra lỗi. Vui lòng thử lại.';
+            });
+        }
+    });
+});
+</script>

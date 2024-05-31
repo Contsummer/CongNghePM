@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -39,9 +42,22 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="home" asp-action="bosung">(bổ sung)</a>
                         </li>
                     </ul>
-                    <div class="col-md-3 text-end">
-                        <button type="button" class="btn btn-outline-primary me-2">Login</button>
-                        <button type="button" class="btn btn-primary">Sign-up</button>
+                            <div class="col-md-3 text-end">
+                        @{
+                            var username = HttpContextAccessor.HttpContext.Session.GetString("Name");
+                            if (string.IsNullOrEmpty(username))
+                            {
+                                        <a class="btn btn-primary" asp-controller="Login" asp-action="Index">Login</a>
+                                        <a class="btn btn-primary" asp-controller="Login" asp-action="signup">Sign-up</a>
+                            }
+                            else
+                            {
+                                        <span class="text-dark">Welcome, @username</span>
+                                                 <form asp-controller="Login" asp-action="Logout" method="post" class="d-inline">
+                                            <button type="submit" class="btn btn-secondary p-2">Logout</button>
+                                        </form>
+                            }
+                        }
                     </div>
                 </div>
             </div>

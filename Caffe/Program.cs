@@ -1,23 +1,29 @@
 using Caffe.Data;
 using Caffe.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
 
+
+using Microsoft.Extensions.DependencyInjection;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<AppDbContext>(option =>
-    {
-        option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-    }
-);
+{
+    option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
 builder.Services.AddSession(Option =>
 {
     Option.IdleTimeout = TimeSpan.FromSeconds(120);
     Option.Cookie.HttpOnly = true;
     Option.Cookie.IsEssential = true;
 });
+
+builder.Services.AddAutoMapper(typeof(automapperprofile));
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();  // Add this line
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -37,4 +43,3 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
-
