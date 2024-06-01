@@ -2,6 +2,7 @@
 using Caffe.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
+using System.Net.WebSockets;
 using System.Web;
 using Caffe.Models.DTO;
 using Microsoft.AspNetCore.Hosting;
@@ -59,21 +60,13 @@ namespace Caffe.Controllers
             }
             
         }
-       
-        public IActionResult Edit(int id)
-        {
-            var drink = _context.Drinks.FirstOrDefault(d => d.DrinkId == id);
-            DrinkDTO drinkDto = new DrinkDTO();
-            drinkDto.id = drink.DrinkId;
-            drinkDto.Description = drink.descripton;
-            drinkDto.Price=drink.Price;
-            drinkDto.Name=drink.Name;
-            return View(drinkDto);
+
+    
 
 
-        }
 
-        [HttpPost]
+
+    [HttpPost]
         public async Task<ActionResult> Edit(DrinkDTO data)
         {
             var drink = _context.Drinks.FirstOrDefault(d => d.DrinkId == data.id);
@@ -126,7 +119,7 @@ namespace Caffe.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
-
+    
     }
 
 }

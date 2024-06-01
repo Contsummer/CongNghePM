@@ -21,8 +21,7 @@ builder.Services.AddSession(Option =>
     Option.Cookie.IsEssential = true;
 });
 
-builder.Services.AddAutoMapper(typeof(automapperprofile));
-builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();  // Add this line
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();  
 
 var app = builder.Build();
 
