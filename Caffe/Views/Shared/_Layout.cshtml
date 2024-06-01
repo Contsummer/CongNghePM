@@ -50,7 +50,7 @@
                             }
                             else
                             {
-                                                       <a  asp-controller="Login" asp-action="edit"><span class="text-dark pe-5">Welcome, @username</span></a> 
+                                                       <a style="text-decoration:none"  asp-controller="Login" asp-action="edit"><span class="text-dark pe-5"> @username <img style="height:15px;margin-left:5px; margin-bottom:-3px;" src="/Image/user-solid (1).svg" alt="Alternate Text" /> </span></a> 
                                                  <form asp-controller="Login" asp-action="Logout" method="post" class="d-inline">
                                             <button type="submit" class="btn btn-primary p-2">Logout</button>
                                         </form>

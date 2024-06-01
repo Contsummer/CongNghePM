@@ -68,8 +68,11 @@ namespace Caffe.Controllers
         public JsonResult CheckUsername(string username)
         {
             bool exists = _context.Users.Any(u => u.Username == username);
-            return Json(!exists); // Return true if username does not exist
+            return Json(!exists); 
         }
+
+
+
         [HttpPost]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
@@ -79,7 +82,6 @@ namespace Caffe.Controllers
 
             if (user != null)
             {
-                // Store user information in session
                 HttpContext.Session.SetString("Username", user.Username);
                 HttpContext.Session.SetString("Name", user.Name);
                 HttpContext.Session.SetString("role", user.role);
@@ -94,9 +96,7 @@ namespace Caffe.Controllers
         [HttpPost]
         public IActionResult Logout()
         {
-            // Clear the session
             HttpContext.Session.Clear();
-            // Redirect to the login page or home page
             return RedirectToAction("Index", "Home");
         }
 
@@ -106,18 +106,15 @@ namespace Caffe.Controllers
             var username = HttpContext.Session.GetString("Username");
             if (username == null)
             {
-                // Người dùng chưa đăng nhập, chuyển hướng đến trang đăng nhập
                 return RedirectToAction("Login");
             }
 
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
             if (user == null)
             {
-                // Người dùng không tồn tại trong cơ sở dữ liệu
                 return NotFound();
             }
 
-            // Chỉ đọc tên và vai trò của người dùng
             var userData = new User
             {
                 Name = user.Name,
