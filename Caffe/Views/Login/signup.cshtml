@@ -97,7 +97,8 @@ function checkUsernameAvailability(event, username) {
                 document.getElementById("userErrorMessage").textContent = '';
                 document.getElementById("signupForm").removeEventListener("submit", validateForm);
                 document.getElementById("signupForm").submit();
-            }
+                    window.location.href = '/Login';
+                }
         })
         .catch(error => {
             console.error('Error:', error);

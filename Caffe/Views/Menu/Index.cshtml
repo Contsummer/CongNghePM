@@ -3,10 +3,10 @@
 
 @using Microsoft.AspNetCore.Http
 @inject IHttpContextAccessor HttpContextAccessor
-<h1>Đây là menu </h1>
+<h1 style="font-size:3rem; text-align:center;"> MENU </h1>
 @{
     var userrole = ViewBag.Userrole as string;
-    if (userrole == "admin")
+    if (userrole == "Admin")
     {
                                  <a class="btn btn-success col-1"  asp-action="add" asp-controller="Menu" > add</a>
 
@@ -48,7 +48,7 @@
                                     <h5 class="card-title">@drink.Name</h5>
                                                <h5 class="card-title text-danger">@drink.Price VNĐ</h5>
                                     <p class="card-text">@drink.descripton</p>
-                                   
+                                    <a class="btn btn-primary"> mua <img style="height:25px" src="/Image/cart-plus-solid.svg" alt="Alternate Text" /> </a> 
                                 </div>
                             </div>
                         </div>
