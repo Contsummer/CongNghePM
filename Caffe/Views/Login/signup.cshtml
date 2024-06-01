@@ -1,5 +1,5 @@
 ﻿@model Caffe.Models.User
-<div class="bg d-flex align-items-center justify-content-center">
+<div style="margin-top:113px;" class="bg d-flex align-items-center justify-content-center">
     <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 25rem;">
         <div class="card-body">
             <h5 class="card-title text-center">Sign Up</h5>
@@ -37,7 +37,7 @@ function validateForm(event) {
     var user = document.getElementById("userid").value.trim();
     var pass = document.getElementById("passid").value.trim();
     var confirm = document.getElementById("confirmid").value.trim();
-
+    var lengthpass = document.getElementById("passid").value.length;
     if (name === '') {
         document.getElementById("NameErrorMessage").textContent = 'Vui lòng nhập tên của bạn.';
         isValid = false;
@@ -67,21 +67,26 @@ function validateForm(event) {
     }
 
     if (pass !== confirm) {
-        document.getElementById("confirmErrorMessage").textContent = 'Passwords do not match.';
+        document.getElementById("confirmErrorMessage").textContent = 'Mật khẩu không trùng khớp.';
         isValid = false;
     } else {
         document.getElementById("confirmErrorMessage").textContent = '';
     }
-
+    if(lengthpass <5){
+         document.getElementById("confirmErrorMessage").textContent = 'Mật khẩu phải lớn hơn 5 kí tự ';
+        isValid = false;
+    } else {
+        document.getElementById("confirmErrorMessage").textContent = '';
+    }
     if (isValid) {
         checkUsernameAvailability(event, user);
     } else {
-        event.preventDefault(); // Ngăn chặn việc gửi form nếu không hợp lệ
+        event.preventDefault(); 
     }
 }
 
 function checkUsernameAvailability(event, username) {
-    event.preventDefault(); // Ngăn chặn việc gửi form ban đầu
+    event.preventDefault(); 
     fetch(`/Login/CheckUsername?username=${encodeURIComponent(username)}`)
         .then(response => response.json())
         .then(data => {
@@ -91,12 +96,13 @@ function checkUsernameAvailability(event, username) {
                  alert('Đăng Kí Thành Công');
                 document.getElementById("userErrorMessage").textContent = '';
                 document.getElementById("signupForm").removeEventListener("submit", validateForm);
-                document.getElementById("signupForm").submit(); // Gửi biểu mẫu nếu hợp lệ
-            }
+                document.getElementById("signupForm").submit();
+                    window.location.href = '/Login';
+                }
         })
         .catch(error => {
             console.error('Error:', error);
-            event.preventDefault(); // Ngăn chặn việc gửi form trong trường hợp lỗi
+            event.preventDefault(); 
         });
 }
 

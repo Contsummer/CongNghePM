@@ -1,26 +1,79 @@
-﻿@model List<Drink>
-<h1>Đây là menu </h1>
-<a class="btn btn-success col-1"  asp-action="add" asp-controller="Menu" > add</a>
+﻿    <div style="margin-top:113px; margin-bottom:100px;">
+        @model List<Drink>
 
-<div class="container ">
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-        @foreach (Drink drink in Model)
+    @using Microsoft.AspNetCore.Http
+    @inject IHttpContextAccessor HttpContextAccessor
+    <h1 style="font-size:3rem; text-align:center;"> MENU </h1>
+    @{
+        var userrole = ViewBag.Userrole as string;
+        if (userrole == "Admin")
         {
-            <div class="col">
-                <div class="card">
-                    <img src="~/Image/@drink.imagePath" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">@drink.Name</h5>
-                        <h5 class="card-title">@drink.Price</h5>
-                        <p class="card-text">@drink.descripton</p>
-                        <a class="btn btn-primary" asp-action="Edit" asp-controller="Menu" asp-route-id="@drink.DrinkId"> edit</a>
-                        <a class="btn btn-danger" asp-action="Delete" asp-controller="Menu" asp-route-id="@drink.DrinkId"> Delete</a>
-                        <a class="btn btn-danger" asp-action="Add" asp-controller="HoaDon" asp-route-id="@drink.DrinkId"> Delete</a>
-                    </div>
+                                     <a class="btn btn-success col-1"  asp-action="add" asp-controller="Menu" > add</a>
+
+            <div class="container ">
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    @foreach (Drink drink in Model)
+                    {
+                            <div class="col">
+                                <div class="card">
+                                    <img src="~/Image/@drink.imagePath" class="card-img-top" style="  height:270px !important;  "  alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">@drink.Name</h5>
+                                        <h5 class="card-title text-danger">@drink.Price VNĐ</h5>
+                                        <p class="card-text">@drink.descripton</p>
+                                        <a class="btn btn-primary" asp-action="Edit" asp-controller="Menu" asp-route-id="@drink.DrinkId"> edit</a>
+                                    <a onclick="confirmDelete(this)" class="btn btn-danger deleteButton" asp-action="Delete" asp-controller="Menu" asp-route-id="@drink.DrinkId"> Delete</a>
+                                   
+                                    </div>
+                                </div>
+                            </div>
+
+
+                    }
                 </div>
             </div>
-
-
         }
+        else
+        {
+                                
+
+            <div class="container ">
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    @foreach (Drink drink in Model)
+                    {
+                            <div class="col">
+                                <div class="card">
+                                    <img src="~/Image/@drink.imagePath" class="card-img-top "   style="  height:270px !important;  " alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">@drink.Name</h5>
+                                                   <h5 class="card-title text-danger">@drink.Price VNĐ</h5>
+                                        <p class="card-text">@drink.descripton</p>
+                                        <a class="btn btn-primary"> mua <img style="height:25px" src="/Image/cart-plus-solid.svg" alt="Alternate Text" /> </a> 
+                                    </div>
+                                </div>
+                            </div>
+                    }
+                </div>
+            </div>
+        }
+    }
     </div>
-</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var deleteButtons = document.querySelectorAll('.deleteButton');
+
+        deleteButtons.forEach(function (button) {
+            button.onclick = function () {
+                var result = confirm("Bạn có chắc chắn muốn xóa không?");
+                if (result) {
+
+                    alert("Đã xóa!");
+                } else {
+                    event.preventDefault();
+                 //   alert("Hủy xóa!");
+                }
+            };
+        });
+    });
+</script>
